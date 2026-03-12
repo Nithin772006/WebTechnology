@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TrendPulse — Global Conflict Research</title>
+  <meta name="description"
+    content="In-depth research on current world conflicts, wars, geopolitical crises, and their origins, ongoing developments, and projected outcomes." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/chatbot.css" />
+</head>
+
+<body>
+
+  <!-- BREAKING NEWS TICKER -->
+  <div class="breaking-bar" id="breakingBar">
+    <span class="breaking-label">⚡ BREAKING</span>
+    <div class="ticker-wrapper">
+      <div class="ticker-track" id="tickerTrack">
+        <span>Russia-Ukraine conflict enters year 3: NATO reaffirms support &nbsp;•&nbsp; Middle East tensions escalate
+          as ceasefire talks stall &nbsp;•&nbsp; South China Sea: China conducts military exercises near Taiwan Strait
+          &nbsp;•&nbsp; Sudan civil war: UN declares humanitarian catastrophe &nbsp;•&nbsp; North Korea fires ballistic
+          missiles in Korean Peninsula provocation &nbsp;•&nbsp; Yemen ceasefire: Houthi attacks resume on Red Sea
+          shipping lanes &nbsp;•&nbsp; TrendPulse EXCLUSIVE: Full geopolitical analysis updated daily</span>
+        <span>Russia-Ukraine conflict enters year 3: NATO reaffirms support &nbsp;•&nbsp; Middle East tensions escalate
+          as ceasefire talks stall &nbsp;•&nbsp; South China Sea: China conducts military exercises near Taiwan Strait
+          &nbsp;•&nbsp; Sudan civil war: UN declares humanitarian catastrophe &nbsp;•&nbsp; North Korea fires ballistic
+          missiles in Korean Peninsula provocation &nbsp;•&nbsp; Yemen ceasefire: Houthi attacks resume on Red Sea
+          shipping lanes &nbsp;•&nbsp; TrendPulse EXCLUSIVE: Full geopolitical analysis updated daily</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <div class="brand-logo">
+          <span class="logo-icon">⬡</span>
+          <div class="brand-text">
+            <span class="brand-name">TrendPulse</span>
+            <span class="brand-tagline">RESEARCH JOURNAL</span>
+          </div>
+        </div>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="research.html" class="nav-link">Research</a></li>
+        <li><a href="conflicts.html" class="nav-link">Conflicts</a></li>
+        <li><a href="news.html" class="nav-link" style="color:#00d4ff;">&#128250; Live News</a></li>
+        <li><a href="analysis.html" class="nav-link">Analysis</a></li>
+        <li><a href="#chatbot-trigger" class="nav-link nav-cta" id="openChatNavBtn">💬 Ask AI</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <header class="hero" id="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-particles" id="heroParticles"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span>Live Research Updates — March 2026</span>
+      </div>
+      <h1 class="hero-title">
+        Understanding<br />
+        <span class="gradient-text">World Conflicts</span><br />
+        Through Research
+      </h1>
+      <p class="hero-subtitle">
+        In-depth geopolitical analysis, conflict timelines, and expert projections on the wars and crises shaping our
+        world — backed by verifiable data and primary sources.
+      </p>
+      <div class="hero-actions">
+        <a href="research.html" class="btn btn-primary">
+          <span>Explore Research</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+        <a href="conflicts.html" class="btn btn-secondary">View Conflict Map</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="stat-number" data-target="47">0</span>
+          <span class="stat-label">Active Conflicts</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-number" data-target="12">0</span>
+          <span class="stat-label">Research Docs</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-number" data-target="120">0</span>
+          <span class="stat-label">Countries Covered</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-number" data-target="98">0</span>
+          <span class="stat-label">Daily Updates</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <div class="scroll-arrow"></div>
+      <span>Scroll to explore</span>
+    </div>
+  </header>
+
+  <!-- FEATURED RESEARCH SECTION -->
+  <section class="section featured-section" id="featured">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">FEATURED RESEARCH</div>
+        <h2 class="section-title">Most Critical Conflicts</h2>
+        <p class="section-subtitle">Comprehensive research documents on the world's most significant ongoing conflicts
+        </p>
+      </div>
+
+      <div class="featured-grid">
+        <!-- CARD 1 - Ukraine -->
+        <a href="research.html#ukraine" class="research-card card-large">
+          <div class="card-image" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);">
+            <div class="card-flag">🇺🇦</div>
+            <div class="card-conflict-badge critical">CRITICAL</div>
+            <div class="card-image-overlay">
+              <div class="conflict-timeline-mini">
+                <div class="timeline-dot active"></div>
+                <div class="timeline-line"></div>
+                <div class="timeline-dot active"></div>
+                <div class="timeline-line"></div>
+                <div class="timeline-dot ongoing"></div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta">
+              <span class="card-category">WAR RESEARCH</span>
+              <span class="card-date">Updated: Mar 12, 2026</span>
+            </div>
+            <h3 class="card-title">Russia–Ukraine War: Origins, Escalation & Geopolitical Fallout</h3>
+            <p class="card-excerpt">A deep-dive into how the 2022 invasion began, NATO's expanding role, battlefield
+              realities in 2026, and expert projections on how this war could end.</p>
+            <div class="card-footer">
+              <span class="read-time">⏱ 18 min read</span>
+              <span class="card-arrow">→</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- CARD 2 - Middle East -->
+        <a href="research.html#middleeast" class="research-card card-medium">
+          <div class="card-image" style="background: linear-gradient(135deg, #2d1b00 0%, #5c3300 50%, #8b5e00 100%);">
+            <div class="card-flag">🇵🇸</div>
+            <div class="card-conflict-badge critical">CRITICAL</div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta">
+              <span class="card-category">WAR RESEARCH</span>
+              <span class="card-date">Updated: Mar 12, 2026</span>
+            </div>
+            <h3 class="card-title">Israel–Gaza War & Middle East Escalation</h3>
+            <p class="card-excerpt">Tracing the roots of the October 7, 2023 attack, Israel's military campaign,
+              regional spillover into Lebanon, Yemen, and Iran proxy networks.</p>
+            <div class="card-footer">
+              <span class="read-time">⏱ 22 min read</span>
+              <span class="card-arrow">→</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- CARD 3 - Taiwan -->
+        <a href="research.html#taiwan" class="research-card card-medium">
+          <div class="card-image" style="background: linear-gradient(135deg, #1a0a2e 0%, #2d1554 50%, #4a2080 100%);">
+            <div class="card-flag">🇹🇼</div>
+            <div class="card-conflict-badge high">HIGH TENSION</div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta">
+              <span class="card-category">GEOPOLITICS</span>
+              <span class="card-date">Updated: Mar 11, 2026</span>
+            </div>
+            <h3 class="card-title">China–Taiwan: The Flashpoint That Could Start WW3</h3>
+            <p class="card-excerpt">How cross-strait tensions have reached their most dangerous level, US commitments,
+              China's military buildup, and the scenarios that could trigger global war.</p>
+            <div class="card-footer">
+              <span class="read-time">⏱ 16 min read</span>
+              <span class="card-arrow">→</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- CARD 4 - Sudan -->
+        <a href="research.html#sudan" class="research-card card-small">
+          <div class="card-body">
+            <div class="card-conflict-badge medium">ONGOING</div>
+            <div class="card-meta">
+              <span class="card-category">CIVIL WAR</span>
+            </div>
+            <h3 class="card-title">Sudan Civil War: The Forgotten Crisis</h3>
+            <p class="card-excerpt">The war between SAF and RSF that has displaced 8 million people.</p>
+            <div class="card-footer">
+              <span class="read-time">⏱ 12 min read</span>
+              <span class="card-arrow">→</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- CARD 5 - North Korea -->
+        <a href="research.html#northkorea" class="research-card card-small">
+          <div class="card-body">
+            <div class="card-conflict-badge high">NUCLEAR RISK</div>
+            <div class="card-meta">
+              <span class="card-category">NUCLEAR</span>
+            </div>
+            <h3 class="card-title">North Korea's Nuclear Ambitions & Korean Peninsula Tensions</h3>
+            <p class="card-excerpt">Pyongyang's accelerating weapons program and what it means for Asia.</p>
+            <div class="card-footer">
+              <span class="read-time">⏱ 14 min read</span>
+              <span class="card-arrow">→</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- CARD 6 - Yemen -->
+        <a href="research.html#yemen" class="research-card card-small">
+          <div class="card-body">
+            <div class="card-conflict-badge medium">ONGOING</div>
+            <div class="card-meta">
+              <span class="card-category">PROXY WAR</span>
+            </div>
+            <h3 class="card-title">Yemen & the Houthi Factor: Red Sea at Risk</h3>
+            <p class="card-excerpt">How Iran-backed Houthis have disrupted global shipping and widened the regional war.
+            </p>
+            <div class="card-footer">
+              <span class="read-time">⏱ 11 min read</span>
+              <span class="card-arrow">→</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORLD WAR RISK METER -->
+  <section class="section risk-section">
+    <div class="container">
+      <div class="risk-panel">
+        <div class="risk-header">
+          <div class="section-tag">RISK ASSESSMENT</div>
+          <h2>Global War Escalation Index</h2>
+          <p>Based on geopolitical indicators, military deployments, and diplomatic breakdown metrics</p>
+        </div>
+        <div class="risk-meters">
+          <div class="risk-item">
+            <div class="risk-label">
+              <span class="risk-region">Europe (Ukraine)</span>
+              <span class="risk-value critical-text">87%</span>
+            </div>
+            <div class="risk-bar-bg">
+              <div class="risk-bar-fill critical-bar" style="--target-w: 87%"></div>
+            </div>
+          </div>
+          <div class="risk-item">
+            <div class="risk-label">
+              <span class="risk-region">Middle East</span>
+              <span class="risk-value critical-text">82%</span>
+            </div>
+            <div class="risk-bar-bg">
+              <div class="risk-bar-fill critical-bar" style="--target-w: 82%"></div>
+            </div>
+          </div>
+          <div class="risk-item">
+            <div class="risk-label">
+              <span class="risk-region">Taiwan Strait</span>
+              <span class="risk-value high-text">74%</span>
+            </div>
+            <div class="risk-bar-bg">
+              <div class="risk-bar-fill high-bar" style="--target-w: 74%"></div>
+            </div>
+          </div>
+          <div class="risk-item">
+            <div class="risk-label">
+              <span class="risk-region">Korean Peninsula</span>
+              <span class="risk-value high-text">68%</span>
+            </div>
+            <div class="risk-bar-bg">
+              <div class="risk-bar-fill high-bar" style="--target-w: 68%"></div>
+            </div>
+          </div>
+          <div class="risk-item">
+            <div class="risk-label">
+              <span class="risk-region">Sub-Saharan Africa</span>
+              <span class="risk-value medium-text">55%</span>
+            </div>
+            <div class="risk-bar-bg">
+              <div class="risk-bar-fill medium-bar" style="--target-w: 55%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="risk-ww3">
+          <div class="ww3-meter-label">WW3 Probability Index</div>
+          <div class="ww3-gauge-wrap">
+            <div class="ww3-gauge" id="ww3Gauge">
+              <div class="gauge-arc"></div>
+              <div class="gauge-needle" id="gaugeNeedle"></div>
+              <div class="gauge-center-label">
+                <span class="gauge-percent">34%</span>
+                <span class="gauge-sub">Elevated</span>
+              </div>
+            </div>
+          </div>
+          <p class="ww3-note">*This index is an aggregated assessment based on academically published risk models, UN
+            reports, and expert panel evaluations. Updated weekly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE SECTION -->
+  <section class="section timeline-section" id="timeline">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">GLOBAL TIMELINE</div>
+        <h2 class="section-title">Key Events: 2022–2026</h2>
+        <p class="section-subtitle">The chain of events that escalated regional conflicts into a potential world crisis
+        </p>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item left" data-aos="fade-right">
+          <div class="timeline-dot war"></div>
+          <div class="timeline-card">
+            <span class="tl-date">Feb 24, 2022</span>
+            <h4>Russia Invades Ukraine</h4>
+            <p>Putin launches "special military operation." The largest land war in Europe since WW2 begins, shocking
+              the global order.</p>
+            <span class="tl-tag">🇷🇺🇺🇦 Europe</span>
+          </div>
+        </div>
+        <div class="timeline-item right" data-aos="fade-left">
+          <div class="timeline-dot diplomatic"></div>
+          <div class="timeline-card">
+            <span class="tl-date">Aug 2022</span>
+            <h4>Taiwan Strait Crisis</h4>
+            <p>China launches unprecedented military exercises around Taiwan following Pelosi's visit. US carrier groups
+              deploy.</p>
+            <span class="tl-tag">🇨🇳🇹🇼 Asia-Pacific</span>
+          </div>
+        </div>
+        <div class="timeline-item left" data-aos="fade-right">
+          <div class="timeline-dot war"></div>
+          <div class="timeline-card">
+            <span class="tl-date">Oct 7, 2023</span>
+            <h4>Hamas Attacks Israel</h4>
+            <p>Unprecedented terrorist attack kills 1,200 Israelis. Israel declares war on Gaza. 40,000+ Palestinian
+              casualties follow.</p>
+            <span class="tl-tag">🇵🇸🇮🇱 Middle East</span>
+          </div>
+        </div>
+        <div class="timeline-item right" data-aos="fade-left">
+          <div class="timeline-dot crisis"></div>
+          <div class="timeline-card">
+            <span class="tl-date">Nov 2023</span>
+            <h4>Houthis Block Red Sea</h4>
+            <p>Houthi missiles target cargo ships in the Red Sea. 15% of global trade disrupted. US & UK strike Houthi
+              sites in Yemen.</p>
+            <span class="tl-tag">🇾🇪 Red Sea</span>
+          </div>
+        </div>
+        <div class="timeline-item left" data-aos="fade-right">
+          <div class="timeline-dot war"></div>
+          <div class="timeline-card">
+            <span class="tl-date">Apr 2024</span>
+            <h4>Iran Strikes Israel Directly</h4>
+            <p>Iran fires 300+ drones and missiles at Israel — the first direct attack by Iran on Israeli soil. Israel
+              retaliates.</p>
+            <span class="tl-tag">🇮🇷🇮🇱 Middle East</span>
+          </div>
+        </div>
+        <div class="timeline-item right" data-aos="fade-left">
+          <div class="timeline-dot diplomatic"></div>
+          <div class="timeline-card">
+            <span class="tl-date">June 2024</span>
+            <h4>NATO Expands East</h4>
+            <p>Sweden joins NATO. Alliance now borders Russia for 1,300+ km. Putin calls it an "existential threat" to
+              Russia.</p>
+            <span class="tl-tag">🌍 NATO</span>
+          </div>
+        </div>
+        <div class="timeline-item left" data-aos="fade-right">
+          <div class="timeline-dot crisis"></div>
+          <div class="timeline-card">
+            <span class="tl-date">Jan 2025</span>
+            <h4>Ukraine Ceasefire Talks Collapse</h4>
+            <p>Peace negotiations mediated by Turkey and China fail. Russia pushes into Sumy Oblast. NATO debates direct
+              intervention.</p>
+            <span class="tl-tag">🇺🇦 Europe</span>
+          </div>
+        </div>
+        <div class="timeline-item right" data-aos="fade-left">
+          <div class="timeline-dot war"></div>
+          <div class="timeline-card">
+            <span class="tl-date">Mar 2026</span>
+            <h4>Current: Multi-Front Global Crisis</h4>
+            <p>Three major wars — Ukraine, Gaza, Sudan — simultaneously active. Taiwan tensions remain at historic high.
+              WW3 debates intensify in world capitals.</p>
+            <span class="tl-tag">🌐 Global</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LATEST UPDATES SECTION -->
+  <section class="section updates-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">LATEST UPDATES</div>
+        <h2 class="section-title">Today's Conflict Digest</h2>
+      </div>
+      <div class="updates-grid">
+        <div class="update-item">
+          <div class="update-time">2h ago</div>
+          <div class="update-badge ukraine">Ukraine</div>
+          <p class="update-text">Ukrainian forces repel Russian advance in Zaporizhzhia; artillery exchanges reported
+            overnight</p>
+        </div>
+        <div class="update-item">
+          <div class="update-time">4h ago</div>
+          <div class="update-badge gaza">Gaza</div>
+          <p class="update-text">UN Security Council votes on new ceasefire resolution; US abstains for first time since
+            October 2023</p>
+        </div>
+        <div class="update-item">
+          <div class="update-time">6h ago</div>
+          <div class="update-badge taiwan">Taiwan</div>
+          <p class="update-text">PLA Navy conducts drills in South China Sea; Taiwan scrambles fighters in response</p>
+        </div>
+        <div class="update-item">
+          <div class="update-time">8h ago</div>
+          <div class="update-badge sudan">Sudan</div>
+          <p class="update-text">RSF forces advance on Omdurman; UNHCR reports 200,000 new refugees crossing into Chad
+          </p>
+        </div>
+        <div class="update-item">
+          <div class="update-time">10h ago</div>
+          <div class="update-badge dprk">N. Korea</div>
+          <p class="update-text">DPRK launches two short-range ballistic missiles; Japan and South Korea issue alerts
+          </p>
+        </div>
+        <div class="update-item">
+          <div class="update-time">12h ago</div>
+          <div class="update-badge yemen">Yemen</div>
+          <p class="update-text">Houthi drone targets oil tanker in Gulf of Aden; US Navy intercepts projectile</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE NEWS FEED SECTION -->
+  <section class="section" style="padding:60px 0;">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">LIVE NEWS DATABASE</div>
+        <h2 class="section-title">Breaking: Real-Time Conflict News</h2>
+        <p class="section-subtitle">Fetched live from global news sources — auto-refreshes every 15 minutes</p>
+      </div>
+      <div id="homeLiveFeed" style="margin-top:32px;"></div>
+      <div style="text-align:center;margin-top:28px;">
+        <a href="news.html" class="btn btn-secondary" style="display:inline-flex;align-items:center;gap:8px;">&#128250;
+          View All Live News &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="section cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <div class="cta-particles"></div>
+        <h2>Have Questions About Current Conflicts?</h2>
+        <p>Our AI research assistant is trained on thousands of geopolitical reports. Ask anything about any conflict —
+          origins, current status, peace prospects, or historical context.</p>
+        <button class="btn btn-primary btn-large" id="openChatBtn">
+          <span>💬 Chat with AI Research Assistant</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <span class="logo-icon">⬡</span>
+            <div class="brand-text">
+              <span class="brand-name">TrendPulse</span>
+              <span class="brand-tagline">RESEARCH JOURNAL</span>
+            </div>
+          </div>
+          <p class="footer-desc">Independent geopolitical research and conflict analysis. Built to inform, not inflame.
+          </p>
+        </div>
+        <div class="footer-nav">
+          <h4>Research</h4>
+          <ul>
+            <li><a href="research.html#ukraine">Ukraine War</a></li>
+            <li><a href="research.html#middleeast">Middle East</a></li>
+            <li><a href="research.html#taiwan">Taiwan Strait</a></li>
+            <li><a href="research.html#sudan">Sudan</a></li>
+          </ul>
+        </div>
+        <div class="footer-nav">
+          <h4>Sections</h4>
+          <ul>
+            <li><a href="conflicts.html">Conflict Map</a></li>
+            <li><a href="analysis.html">Analysis</a></li>
+            <li><a href="index.html#timeline">Timeline</a></li>
+          </ul>
+        </div>
+        <div class="footer-disclaimer">
+          <h4>Disclaimer</h4>
+          <p>TrendPulse is an independent research journal. All content is for educational and informational purposes.
+            WW3 probability estimates are academic models, not predictions.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 TrendPulse Research Journal &nbsp;|&nbsp; Independent · Verified · Global</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CHATBOT -->
+  <div class="chatbot-fab" id="chatbotFab" title="Ask AI Research Assistant">
+    <div class="fab-icon">💬</div>
+    <div class="fab-pulse"></div>
+    <span class="fab-label">Ask AI</span>
+  </div>
+
+  <div class="chatbot-window" id="chatbotWindow">
+    <div class="chat-header">
+      <div class="chat-header-info">
+        <div class="chat-avatar">🤖</div>
+        <div>
+          <div class="chat-name">TrendPulse AI</div>
+          <div class="chat-status"><span class="status-dot"></span> Research Assistant • Online</div>
+        </div>
+      </div>
+      <div class="chat-header-actions">
+        <button class="chat-minimize" id="chatMinimize" title="Minimize">−</button>
+        <button class="chat-close" id="chatClose" title="Close">×</button>
+      </div>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="message bot-message">
+        <div class="message-avatar">🤖</div>
+        <div class="message-bubble">
+          <p>Hello! I'm TrendPulse's AI Research Assistant. I can help you understand:</p>
+          <ul>
+            <li>🇺🇦 Russia-Ukraine War</li>
+            <li>🇵🇸 Israel-Gaza Conflict</li>
+            <li>🇨🇳 China-Taiwan Tensions</li>
+            <li>🌍 Sudan Civil War</li>
+            <li>🚀 North Korea Nuclear Issue</li>
+            <li>⚓ Yemen & Red Sea Crisis</li>
+          </ul>
+          <p>What would you like to know?</p>
+        </div>
+      </div>
+    </div>
+    <div class="chat-suggestions" id="chatSuggestions">
+      <button class="suggestion-chip" onclick="sendSuggestion(this)">How did the Ukraine war start?</button>
+      <button class="suggestion-chip" onclick="sendSuggestion(this)">Will WW3 happen?</button>
+      <button class="suggestion-chip" onclick="sendSuggestion(this)">What is happening in Gaza?</button>
+      <button class="suggestion-chip" onclick="sendSuggestion(this)">China Taiwan conflict explained</button>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" id="chatInput" class="chat-input" placeholder="Ask about any world conflict..." />
+      <button class="chat-send" id="chatSend" onclick="sendMessage()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="22" y1="2" x2="11" y2="13" />
+          <polygon points="22 2 15 22 11 13 2 9 22 2" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script src="js/news-feed.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Inject live-feed styles for homepage widget
+      if (!document.getElementById('lfi-styles')) {
+        const s = document.createElement('style');
+        s.id = 'lfi-styles';
+        s.textContent = `
+          .live-feed-item{display:flex;gap:14px;padding:16px;border:1px solid var(--border-primary);border-radius:12px;background:var(--bg-card);cursor:pointer;transition:border-color 0.2s,transform 0.2s;margin-bottom:10px;}
+          .live-feed-item:hover{border-color:rgba(255,59,92,0.3);transform:translateX(4px);}
+          .lfi-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px;}
+          .lfi-body{flex:1;min-width:0;}
+          .lfi-topic{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:var(--font-mono);display:block;margin-bottom:4px;}
+          .lfi-title{font-size:14px;font-weight:600;color:var(--text-primary);line-height:1.45;margin:0 0 6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+          .lfi-meta{display:flex;gap:12px;font-size:12px;color:var(--text-muted);font-family:var(--font-mono);}
+          .news-loading{display:flex;flex-direction:column;align-items:center;padding:40px;gap:12px;color:var(--text-muted);}
+          .nl-spinner{width:32px;height:32px;border:2px solid rgba(255,59,92,0.2);border-top-color:#ff3b5c;border-radius:50%;animation:spin 0.8s linear infinite;}
+          @keyframes spin{to{transform:rotate(360deg);}}
+        `;
+        document.head.appendChild(s);
+      }
+      TrendPulseNews.initConflictsFeed('homeLiveFeed');
+    });
+  </script>
+</body>
+
+</html>

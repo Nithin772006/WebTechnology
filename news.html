@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live News — TrendPulse Global Conflict Research</title>
+    <meta name="description"
+        content="Real-time live news on USA-Israel-Iran conflict, Strait of Hormuz, Ukraine-Russia war, Gaza, Iran nuclear standoff, Red Sea crisis — powered by live news APIs." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/chatbot.css" />
+    <style>
+        /* ====== NEWS PAGE STYLES ====== */
+        .news-controls {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-primary);
+            padding: 0;
+            position: sticky;
+            top: 68px;
+            z-index: 90;
+        }
+
+        .news-controls-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .news-status {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: rgba(255, 59, 92, 0.12);
+            border: 1px solid rgba(255, 59, 92, 0.3);
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #ff3b5c;
+            font-family: var(--font-mono);
+        }
+
+        .live-badge-dot {
+            width: 7px;
+            height: 7px;
+            background: #ff3b5c;
+            border-radius: 50%;
+            box-shadow: 0 0 6px #ff3b5c;
+            animation: livepulse 1.2s ease-in-out infinite;
+        }
+
+        @keyframes livepulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.4;
+                transform: scale(0.8);
+            }
+        }
+
+        .status-text {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .news-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 7px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: var(--font-body);
+            transition: all 0.2s;
+            border: 1px solid var(--border-primary);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-secondary);
+        }
+
+        .action-btn:hover {
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+            background: rgba(255, 59, 92, 0.08);
+        }
+
+        .action-btn.primary {
+            background: rgba(255, 59, 92, 0.12);
+            border-color: rgba(255, 59, 92, 0.35);
+            color: #ff7b91;
+        }
+
+        /* Topic Tabs */
+        .topic-tabs-wrapper {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-primary);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .topic-tabs-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        #newsTopicTabs {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 12px 24px;
+            display: flex;
+            gap: 10px;
+            white-space: nowrap;
+        }
+
+        .topic-tab {
+            padding: 8px 18px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-primary);
+            border-radius: 100px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+            font-family: var(--font-body);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .topic-tab:hover {
+            background: rgba(255, 255, 255, 0.07);
+            color: var(--text-primary);
+        }
+
+        /* Page Hero */
+        .news-hero {
+            padding: 60px 24px 40px;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .news-hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .news-hero p {
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            font-size: 13px;
+        }
+
+        /* API Key Notice */
+        .api-notice {
+            max-width: 1280px;
+            margin: 0 auto 32px;
+            padding: 0 24px;
+        }
+
+        .api-notice-inner {
+            background: linear-gradient(135deg, rgba(255, 209, 102, 0.06), rgba(255, 140, 66, 0.06));
+            border: 1px solid rgba(255, 209, 102, 0.25);
+            border-radius: 14px;
+            padding: 18px 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .api-notice-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .api-notice-text h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffd166;
+            margin-bottom: 6px;
+        }
+
+        .api-notice-text p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .api-notice-text a {
+            color: #ffd166;
+            text-decoration: underline;
+        }
+
+        .api-notice-text code {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: #ff8c42;
+        }
+
+        /* News Grid */
+        #newsGrid {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+        }
+
+        .news-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 59, 92, 0.3);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+        }
+
+        .nc-img {
+            width: 100%;
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            background-color: var(--bg-secondary);
+        }
+
+        .nc-img-placeholder {
+            height: 100px;
+        }
+
+        .nc-body {
+            padding: 18px;
+        }
+
+        .nc-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .nc-source {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: var(--font-mono);
+        }
+
+        .nc-time {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .nc-title {
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            font-family: var(--font-display);
+        }
+
+        .nc-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .nc-read {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-red);
+            font-family: var(--font-mono);
+            letter-spacing: 0.5px;
+        }
+
+        /* Loading & Empty */
+        .news-loading {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 24px;
+            gap: 16px;
+            color: var(--text-muted);
+        }
+
+        .nl-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 59, 92, 0.2);
+            border-top-color: #ff3b5c;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .news-empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 24px;
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        /* Pagination */
+        #newsPagination {
+            max-width: 1280px;
+            margin: 0 auto 60px;
+            padding: 0 24px;
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .pag-btn {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+            font-family: var(--font-body);
+        }
+
+        .pag-btn:hover,
+        .pag-btn.active {
+            background: rgba(255, 59, 92, 0.12);
+            border-color: rgba(255, 59, 92, 0.4);
+            color: #ff7b91;
+        }
+
+        /* DB Stats Panel */
+        .db-panel {
+            max-width: 1280px;
+            margin: 0 auto 48px;
+            padding: 0 24px;
+        }
+
+        .db-panel-inner {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-primary);
+            border-radius: 14px;
+            padding: 20px 24px;
+        }
+
+        .db-panel-inner h4 {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .db-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+        }
+
+        .db-stat {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-primary);
+            border-radius: 10px;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .db-stat-num {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .db-stat-lbl {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- BREAKING BAR -->
+    <div class="breaking-bar">
+        <span class="breaking-label">&#9889; LIVE</span>
+        <div class="ticker-wrapper">
+            <div class="ticker-track">
+                <span>LIVE NEWS ENGINE ACTIVE &nbsp;&bull;&nbsp; Fetching real-time conflict updates &nbsp;&bull;&nbsp;
+                    USA-Israel-Iran Standoff: Critical &nbsp;&bull;&nbsp; Strait of Hormuz: 17M bbl/day at risk
+                    &nbsp;&bull;&nbsp; Iran Enrichment: 84% &nbsp;&bull;&nbsp; Auto-refresh every 15 minutes
+                    &nbsp;&bull;&nbsp; Powered by NewsAPI</span>
+                <span>LIVE NEWS ENGINE ACTIVE &nbsp;&bull;&nbsp; Fetching real-time conflict updates &nbsp;&bull;&nbsp;
+                    USA-Israel-Iran Standoff: Critical &nbsp;&bull;&nbsp; Strait of Hormuz: 17M bbl/day at risk
+                    &nbsp;&bull;&nbsp; Iran Enrichment: 84% &nbsp;&bull;&nbsp; Auto-refresh every 15 minutes
+                    &nbsp;&bull;&nbsp; Powered by NewsAPI</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-logo">
+                    <span class="logo-icon">&#11041;</span>
+                    <div class="brand-text">
+                        <span class="brand-name">TrendPulse</span>
+                        <span class="brand-tagline">RESEARCH JOURNAL</span>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="research.html" class="nav-link">Research</a></li>
+                <li><a href="conflicts.html" class="nav-link">Conflicts</a></li>
+                <li><a href="news.html" class="nav-link active">Live News</a></li>
+                <li><a href="analysis.html" class="nav-link">Analysis</a></li>
+                <li><a href="#" class="nav-link nav-cta" id="openChatNavBtn">&#128172; Ask AI</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <!-- LIVE STATUS BAR -->
+    <div class="news-controls">
+        <div class="news-controls-inner">
+            <div class="news-status">
+                <span class="live-badge"><span class="live-badge-dot"></span>LIVE FEED</span>
+                <span class="status-text" id="lastRefreshed">Initializing…</span>
+                <span class="status-text" id="refreshCountdown"></span>
+            </div>
+            <div class="news-actions">
+                <button class="action-btn" onclick="TrendPulseNews.clearCache()">&#128465; Clear Cache</button>
+                <button class="action-btn primary" onclick="TrendPulseNews.refresh()">&#8635; Refresh Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOPIC TABS -->
+    <div class="topic-tabs-wrapper">
+        <div id="newsTopicTabs"><!-- JS renders tabs --></div>
+    </div>
+
+    <!-- HERO -->
+    <div class="news-hero">
+        <div class="section-tag">LIVE NEWS DATABASE</div>
+        <h1 id="newsHeading"
+            style="background:linear-gradient(135deg,#ff3b5c,#ff8c42,#ffd166);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+            🌍 World News — Live</h1>
+        <p id="newsSubheading">Loading articles…</p>
+    </div>
+
+    <!-- API KEY NOTICE -->
+    <div class="api-notice" id="apiNotice">
+        <div class="api-notice-inner">
+            <div class="api-notice-icon">🔑</div>
+            <div class="api-notice-text">
+                <h4>Set Up Your Free NewsAPI Key for Live Data</h4>
+                <p>
+                    1. Go to <a href="https://newsapi.org/register" target="_blank">newsapi.org/register</a> → Sign up
+                    free (100 req/day) → Copy your API key<br>
+                    2. Open <code>js/news-feed.js</code> → Find line with <code>API_KEY: 'YOUR_NEWSAPI_KEY_HERE'</code>
+                    → Replace with your key<br>
+                    3. Save and refresh the page — live news will load instantly. Articles are cached locally for 15
+                    minutes.
+                    <br><br>
+                    <strong style="color:#ffd166;">Until then, demo articles are shown below to preview the
+                        layout.</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- DATABASE STATS -->
+    <div class="db-panel">
+        <div class="db-panel-inner">
+            <h4>&#128202; Local News Database Stats</h4>
+            <div class="db-stats-grid" id="dbStatsGrid">
+                <div class="db-stat"><span class="db-stat-num" id="db-topics">8</span><span class="db-stat-lbl">Topics
+                        Tracked</span></div>
+                <div class="db-stat"><span class="db-stat-num" id="db-articles">—</span><span
+                        class="db-stat-lbl">Articles Cached</span></div>
+                <div class="db-stat"><span class="db-stat-num" id="db-size">—</span><span class="db-stat-lbl">Cache
+                        Size</span></div>
+                <div class="db-stat"><span class="db-stat-num" id="db-ttl">15m</span><span class="db-stat-lbl">Cache
+                        TTL</span></div>
+                <div class="db-stat"><span class="db-stat-num" id="db-source">NewsAPI</span><span
+                        class="db-stat-lbl">Data Source</span></div>
+                <div class="db-stat"><span class="db-stat-num" id="db-storage">Local</span><span
+                        class="db-stat-lbl">Storage Type</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEWS GRID -->
+    <div id="newsGrid">
+        <div class="news-loading">
+            <div class="nl-spinner"></div>
+            <p>Fetching live conflict news…</p>
+        </div>
+    </div>
+
+    <!-- PAGINATION -->
+    <div id="newsPagination"></div>
+
+    <!-- CHATBOT -->
+    <div class="chatbot-fab" id="chatbotFab">
+        <div class="fab-icon">&#128172;</div>
+        <div class="fab-pulse"></div>
+        <span class="fab-label">Ask AI</span>
+    </div>
+    <div class="chatbot-window" id="chatbotWindow">
+        <div class="chat-header">
+            <div class="chat-header-info">
+                <div class="chat-avatar">&#129302;</div>
+                <div>
+                    <div class="chat-name">TrendPulse AI</div>
+                    <div class="chat-status"><span class="status-dot"></span> Research Assistant &bull; Online</div>
+                </div>
+            </div>
+            <div class="chat-header-actions">
+                <button class="chat-minimize" id="chatMinimize">&minus;</button>
+                <button class="chat-close" id="chatClose">&times;</button>
+            </div>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+                <div class="message-avatar">&#129302;</div>
+                <div class="message-bubble">
+                    <p>You're on the Live News page. Ask me about any breaking story or conflict for detailed analysis!
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="chat-suggestions" id="chatSuggestions">
+            <button class="suggestion-chip" onclick="sendSuggestion(this)">What's happening with Iran?</button>
+            <button class="suggestion-chip" onclick="sendSuggestion(this)">Explain the Strait of Hormuz</button>
+            <button class="suggestion-chip" onclick="sendSuggestion(this)">Latest on Ukraine war?</button>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Ask about any conflict…" />
+            <button class="chat-send" id="chatSend" onclick="sendMessage()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13" />
+                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 TrendPulse Research Journal &nbsp;|&nbsp; Live news powered by NewsAPI.org &nbsp;|&nbsp;
+                    Data cached locally
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script src="js/news-feed.js"></script>
+    <script>
+        // Init live news page
+        document.addEventListener('DOMContentLoaded', () => {
+            TrendPulseNews.init();
+            updateDbStats();
+        });
+
+        // Update localStorage DB stats
+        function updateDbStats() {
+            let totalArticles = 0;
+            let totalSize = 0;
+            Object.keys(localStorage).forEach(k => {
+                if (k.startsWith('trendpulse_news_')) {
+                    try {
+                        const data = JSON.parse(localStorage.getItem(k));
+                        if (data?.articles) totalArticles += data.articles.length;
+                        totalSize += (localStorage.getItem(k) || '').length;
+                    } catch (_) { }
+                }
+            });
+            const el = document.getElementById('db-articles');
+            if (el) el.textContent = totalArticles || '—';
+            const sizeEl = document.getElementById('db-size');
+            if (sizeEl) sizeEl.textContent = totalSize > 0 ? (totalSize / 1024).toFixed(1) + 'KB' : '—';
+            setTimeout(updateDbStats, 5000);
+        }
+
+        // Hide API notice if a real API key is in use (not the placeholder)
+        setTimeout(() => {
+            const notice = document.getElementById('apiNotice');
+            // Peek at the config by checking if real news loaded (not demo titles)
+            const keys = Object.keys(localStorage).filter(k => k.startsWith('trendpulse_news_'));
+            if (keys.length > 0 && notice) {
+                try {
+                    const first = JSON.parse(localStorage.getItem(keys[0]));
+                    const isDemo = first?.articles?.[0]?.title?.startsWith('[DEMO]');
+                    if (!isDemo) {
+                        notice.style.transition = 'opacity 0.6s ease, max-height 0.6s ease';
+                        notice.style.overflow = 'hidden';
+                        notice.style.maxHeight = notice.offsetHeight + 'px';
+                        requestAnimationFrame(() => {
+                            notice.style.opacity = '0';
+                            notice.style.maxHeight = '0';
+                            notice.style.marginBottom = '0';
+                            notice.style.paddingBottom = '0';
+                        });
+                    }
+                } catch (_) { }
+            }
+        }, 3500);
+    </script>
+</body>
+
+</html>

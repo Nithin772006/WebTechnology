@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Active Conflicts — TrendPulse Global Conflict Research</title>
+    <meta name="description"
+        content="Overview of all active global conflicts — USA-Israel-Iran, Russia-Ukraine, Israel-Gaza, Strait of Hormuz, Sudan, Yemen, North Korea, China-Taiwan. Status, statistics, and analysis." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/chatbot.css" />
+    <style>
+        .filter-btn {
+            padding: 8px 18px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-primary);
+            border-radius: 100px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            font-family: var(--font-body);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: rgba(255, 59, 92, 0.12);
+            border-color: rgba(255, 59, 92, 0.35);
+            color: var(--accent-red);
+        }
+
+        .flag-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .flag-badge-war {
+            background: rgba(255, 59, 92, 0.1);
+            border: 1px solid rgba(255, 59, 92, 0.25);
+            color: #ff7b91;
+        }
+
+        .flag-badge-ten {
+            background: rgba(255, 140, 66, 0.1);
+            border: 1px solid rgba(255, 140, 66, 0.25);
+            color: #ffb07a;
+        }
+
+        .flag-badge-nuke {
+            background: rgba(255, 209, 102, 0.1);
+            border: 1px solid rgba(255, 209, 102, 0.25);
+            color: #ffd166;
+        }
+
+        .flag-badge-strat {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.25);
+            color: #00d4ff;
+        }
+
+        .dot-strat {
+            background: #00d4ff;
+            box-shadow: 0 0 7px #00d4ff;
+            animation: pdot 1.6s ease-in-out infinite;
+        }
+
+        /* Strait of Hormuz Deep-Dive Section */
+        .hormuz-section {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.04), rgba(0, 153, 200, 0.08));
+            border: 1px solid rgba(0, 212, 255, 0.18);
+            border-radius: 20px;
+            padding: 48px;
+            margin: 60px auto;
+            max-width: 1280px;
+        }
+
+        .hormuz-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+            margin-bottom: 36px;
+            flex-wrap: wrap;
+        }
+
+        .hormuz-icon {
+            font-size: 56px;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .hormuz-title-block h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            color: #00d4ff;
+            margin-bottom: 8px;
+        }
+
+        .hormuz-title-block p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+            max-width: 680px;
+        }
+
+        .hormuz-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+            margin: 32px 0;
+        }
+
+        .hormuz-stat-box {
+            background: rgba(0, 212, 255, 0.07);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .hormuz-stat-num {
+            font-family: var(--font-mono);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #00d4ff;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .hormuz-stat-lbl {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .hormuz-facts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .hormuz-fact-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-primary);
+            border-radius: 14px;
+            padding: 24px;
+        }
+
+        .hormuz-fact-card h4 {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #00d4ff;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hormuz-fact-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.75;
+        }
+
+        .hormuz-risk-bar {
+            margin-top: 28px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-primary);
+            border-radius: 14px;
+            padding: 24px;
+        }
+
+        .hormuz-risk-bar h4 {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .risk-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 12px;
+        }
+
+        .risk-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            width: 160px;
+            flex-shrink: 0;
+        }
+
+        .risk-bar-track {
+            flex: 1;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 100px;
+            overflow: hidden;
+        }
+
+        .risk-bar-fill {
+            height: 100%;
+            border-radius: 100px;
+            transition: width 1.2s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .risk-pct {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+            width: 40px;
+            text-align: right;
+        }
+
+        .flag-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .dot-war {
+            background: #ff3b5c;
+            box-shadow: 0 0 7px #ff3b5c;
+        }
+
+        .dot-ten {
+            background: #ff8c42;
+            box-shadow: 0 0 7px #ff8c42;
+            animation: pdot 1.6s ease-in-out infinite;
+        }
+
+        .dot-nuke {
+            background: #ffd166;
+            box-shadow: 0 0 7px #ffd166;
+            animation: pdot 1.6s ease-in-out infinite;
+        }
+
+        @keyframes pdot {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .3
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="breaking-bar">
+        <span class="breaking-label">&#9889; LIVE</span>
+        <div class="ticker-wrapper">
+            <div class="ticker-track">
+                <span>LIVE TRACKING: 47 active conflicts globally &nbsp;&bull;&nbsp; USA-Israel-Iran: 5th Fleet deployed
+                    to Persian Gulf &nbsp;&bull;&nbsp; Strait of Hormuz: 20% of global oil flows at risk
+                    &nbsp;&bull;&nbsp; Iran: Uranium enriched to 84% near weapons-grade &nbsp;&bull;&nbsp;
+                    Russia-Ukraine: Front lines active in Zaporizhzhia &nbsp;&bull;&nbsp; Gaza: 40,000+ casualties total
+                    &nbsp;&bull;&nbsp; Sudan: 8M+ displaced &nbsp;&bull;&nbsp; Red Sea: Houthi drone intercepted by USS
+                    Carney &nbsp;&bull;&nbsp; Taiwan: PLA aircraft enter ADIZ for 3rd consecutive day</span>
+                <span>LIVE TRACKING: 47 active conflicts globally &nbsp;&bull;&nbsp; USA-Israel-Iran: 5th Fleet deployed
+                    to Persian Gulf &nbsp;&bull;&nbsp; Strait of Hormuz: 20% of global oil flows at risk
+                    &nbsp;&bull;&nbsp; Iran: Uranium enriched to 84% near weapons-grade &nbsp;&bull;&nbsp;
+                    Russia-Ukraine: Front lines active in Zaporizhzhia &nbsp;&bull;&nbsp; Gaza: 40,000+ casualties total
+                    &nbsp;&bull;&nbsp; Sudan: 8M+ displaced &nbsp;&bull;&nbsp; Red Sea: Houthi drone intercepted by USS
+                    Carney &nbsp;&bull;&nbsp; Taiwan: PLA aircraft enter ADIZ for 3rd consecutive day</span>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-logo">
+                    <span class="logo-icon">&#11041;</span>
+                    <div class="brand-text">
+                        <span class="brand-name">TrendPulse</span>
+                        <span class="brand-tagline">RESEARCH JOURNAL</span>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="research.html" class="nav-link">Research</a></li>
+                <li><a href="conflicts.html" class="nav-link active">Conflicts</a></li>
+                <li><a href="news.html" class="nav-link" style="color:#00d4ff;">&#128250; Live News</a></li>
+                <li><a href="analysis.html" class="nav-link">Analysis</a></li>
+                <li><a href="#" class="nav-link nav-cta" id="openChatNavBtn">&#128172; Ask AI</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <div class="page-hero">
+        <div class="section-tag">CONFLICT TRACKER</div>
+        <h1
+            style="background:linear-gradient(135deg,#ff3b5c,#ff8c42,#ffd166);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+            Active Global Conflicts</h1>
+        <p>Real-time tracking of the world's most dangerous ongoing conflicts</p>
+    </div>
+
+    <div style="background:var(--bg-secondary);padding:20px 24px;border-bottom:1px solid var(--border-primary);">
+        <div style="max-width:1280px;margin:0 auto;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+            <span style="font-size:13px;color:var(--text-muted);font-weight:600;letter-spacing:1px;">FILTER:</span>
+            <button class="filter-btn active" onclick="filterConflicts('all',this)">All Conflicts</button>
+            <button class="filter-btn" onclick="filterConflicts('war',this)">Active War</button>
+            <button class="filter-btn" onclick="filterConflicts('tension',this)">High Tension</button>
+            <button class="filter-btn" onclick="filterConflicts('nuclear',this)">Nuclear Risk</button>
+            <button class="filter-btn" onclick="filterConflicts('strategic',this)">Strategic Zones</button>
+        </div>
+    </div>
+
+    <section class="section" style="padding-top:60px;">
+        <div class="conflicts-grid" id="conflictsGrid">
+
+            <div class="conflict-card war-active" data-type="war">
+                <div class="flag-badge flag-badge-war"><span class="flag-dot dot-war"></span>UA &middot; RU</div>
+                <div class="conflict-name">Russia&ndash;Ukraine War</div>
+                <span class="conflict-status status-active">&#9679; Active War</span>
+                <p class="conflict-summary">Russia's full-scale invasion of Ukraine, now in its 4th year. A grinding war
+                    of attrition with 300,000+ casualties. NATO's biggest challenge since the Cold War.</p>
+                <div class="conflict-stats">
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">300K+</span><span
+                            class="conflict-stat-lbl">Casualties</span></div>
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">14M</span><span
+                            class="conflict-stat-lbl">Displaced</span></div>
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">4yr</span><span
+                            class="conflict-stat-lbl">Duration</span></div>
+                </div>
+                <a href="research.html#ukraine" class="conflict-link">Read Research Document &rarr;</a>
+            </div>
+
+            <div class="conflict-card war-active" data-type="war">
+                <div class="flag-badge flag-badge-war"><span class="flag-dot dot-war"></span>PS &middot; IL</div>
+                <div class="conflict-name">Israel&ndash;Gaza War</div>
+                <span class="conflict-status status-active">&#9679; Active War</span>
+                <p class="conflict-summary">Following Hamas's October 7, 2023 attack, Israel launched a massive military
+                    campaign in Gaza. 40,000+ casualties, massive humanitarian crisis, regional spillover involving Iran
+                    and Hezbollah.</p>
+                <div class="conflict-stats">
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">40K+</span><span
+                            class="conflict-stat-lbl">Casualties</span></div>
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">85%</span><span
+                            class="conflict-stat-lbl">Displaced</span></div>
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">9+</span><span
+                            class="conflict-stat-lbl">Nations</span></div>
+                </div>
+                <a href="research.html#middleeast" class="conflict-link">Read Research Document &rarr;</a>
+            </div>
+
+            <!-- USA–ISRAEL–IRAN TRIANGLE -->
+            <div class="conflict-card tension" data-type="tension strategic"
+                style="border-color: rgba(0,212,255,0.25);">
+                <div class="flag-badge flag-badge-strat"><span class="flag-dot dot-strat"></span>US &middot; IL &middot;
+                    IR</div>
+                <div class="conflict-name">USA &ndash; Israel &ndash; Iran Triangle</div>
+                <span class="conflict-status"
+                    style="background:rgba(0,212,255,0.12);color:#00d4ff;border-color:rgba(0,212,255,0.3);">&#9888;
+                    Critical Standoff</span>
+                <p class="conflict-summary">A combustible three-way standoff. The US has deployed two carrier strike
+                    groups to the Persian Gulf backing Israel, while Iran &mdash; which directly attacked Israel with
+                    300+ drones and missiles in April 2024 &mdash; continues nuclear enrichment. Any miscalculation
+                    risks a full-scale regional war drawing in Hezbollah, the Houthis, and Iraqi militias.</p>
+                <div class="conflict-stats">
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">300+</span><span
+                            class="conflict-stat-lbl">Iranian Missiles &amp; Drones Fired</span></div>
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">2</span><span
+                            class="conflict-stat-lbl">US Carrier Groups</span></div>
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">84%</span><span
+                            class="conflict-stat-lbl">Iran Uranium Enrichment</span></div>
+                </div>
+                <div
+                    style="margin-top:16px;padding:14px;background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);border-radius:10px;">
+                    <p style="font-size:13px;color:var(--text-muted);margin:0;line-height:1.6;"><strong
+                            style="color:#00d4ff;">Key Flashpoints:</strong> Strait of Hormuz blockade threat &bull;
+                        Iran nuclear breakout timeline (~2 weeks for enough fissile material) &bull; IRGC proxy network
+                        spanning 7 nations &bull; Israeli preemptive strike possibility</p>
+                </div>
+                <a href="research.html#middleeast" class="conflict-link" style="color:#00d4ff;">Read Research Document
+                    &rarr;</a>
+            </div>
+
+            <!-- IRAN NUCLEAR STANDOFF -->
+            <div class="conflict-card nuclear" data-type="nuclear strategic">
+                <div class="flag-badge flag-badge-nuke"><span class="flag-dot dot-nuke"></span>IR &mdash; Nuclear</div>
+                <div class="conflict-name">Iran Nuclear Standoff</div>
+                <span class="conflict-status status-nuclear">&#9762; Nuclear Breakout Risk</span>
+                <p class="conflict-summary">Iran has enriched uranium to 84% &mdash; just below weapons-grade (90%). The
+                    IAEA estimates Iran could produce enough fissile material for 1 bomb in under 2 weeks. Failed JCPOA
+                    negotiations under Trump's &ldquo;maximum pressure&rdquo; re-imposition in 2025 have left diplomacy
+                    at a dead end. Israel has vowed to never allow a nuclear-armed Iran.</p>
+                <div class="conflict-stats">
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">84%</span><span
+                            class="conflict-stat-lbl">Enrichment Level</span></div>
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">&lt;2wk</span><span
+                            class="conflict-stat-lbl">Breakout Time</span></div>
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">3,000kg</span><span
+                            class="conflict-stat-lbl">Enriched Uranium Stock</span></div>
+                </div>
+                <a href="research.html#middleeast" class="conflict-link">Read Research Document &rarr;</a>
+            </div>
+
+            <div class="conflict-card war-active" data-type="war">
+                <div class="flag-badge flag-badge-war"><span class="flag-dot dot-war"></span>SD &mdash; Civil War</div>
+                <div class="conflict-name">Sudan Civil War</div>
+                <span class="conflict-status status-active">&#9679; Active War</span>
+                <p class="conflict-summary">Civil war between SAF and RSF paramilitary. The world's largest displacement
+                    crisis with 8M+ internally displaced. Systematic atrocities in Darfur reported.</p>
+                <div class="conflict-stats">
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">8M+</span><span
+                            class="conflict-stat-lbl">Displaced</span></div>
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">25M</span><span
+                            class="conflict-stat-lbl">Food Insecure</span></div>
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">2yr</span><span
+                            class="conflict-stat-lbl">Duration</span></div>
+                </div>
+                <a href="research.html#sudan" class="conflict-link">Read Research Document &rarr;</a>
+            </div>
+
+            <div class="conflict-card tension" data-type="tension">
+                <div class="flag-badge flag-badge-ten"><span class="flag-dot dot-ten"></span>CN &middot; TW</div>
+                <div class="conflict-name">China&ndash;Taiwan Crisis</div>
+                <span class="conflict-status status-tension">&#9888; High Tension</span>
+                <p class="conflict-summary">China's growing military pressure on Taiwan &mdash; the world's leading
+                    semiconductor producer &mdash; threatens to trigger a US-China confrontation. Analysts call it the
+                    world's most dangerous geopolitical flashpoint.</p>
+                <div class="conflict-stats">
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">92%</span><span
+                            class="conflict-stat-lbl">TSMC Share</span></div>
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">$760B</span><span
+                            class="conflict-stat-lbl">Taiwan GDP</span></div>
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">15%</span><span
+                            class="conflict-stat-lbl">Invasion Risk</span></div>
+                </div>
+                <a href="research.html#taiwan" class="conflict-link">Read Research Document &rarr;</a>
+            </div>
+
+            <div class="conflict-card nuclear" data-type="nuclear">
+                <div class="flag-badge flag-badge-nuke"><span class="flag-dot dot-nuke"></span>KP &mdash; Nuclear</div>
+                <div class="conflict-name">North Korea Nuclear Threat</div>
+                <span class="conflict-status status-nuclear">&#9762; Nuclear Risk</span>
+                <p class="conflict-summary">DPRK has 40&ndash;50 nuclear warheads and ICBMs capable of hitting the US
+                    mainland. Kim Jong-Un has vowed never to denuclearize. DPRK troops now fighting in Ukraine alongside
+                    Russia.</p>
+                <div class="conflict-stats">
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">50</span><span
+                            class="conflict-stat-lbl">Warheads (est)</span></div>
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">US</span><span
+                            class="conflict-stat-lbl">ICBM Reach</span></div>
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">10K</span><span
+                            class="conflict-stat-lbl">Troops in Russia</span></div>
+                </div>
+                <a href="research.html#northkorea" class="conflict-link">Read Research Document &rarr;</a>
+            </div>
+
+            <div class="conflict-card war-active" data-type="war">
+                <div class="flag-badge flag-badge-war"><span class="flag-dot dot-war"></span>YE &mdash; Red Sea</div>
+                <div class="conflict-name">Yemen &amp; Red Sea Crisis</div>
+                <span class="conflict-status status-active">&#9679; Active Proxy War</span>
+                <p class="conflict-summary">Iran-backed Houthi rebels attacking commercial shipping in the Red Sea since
+                    October 2023. 15% of global trade disrupted. US-UK conducting airstrikes in Yemen. Saudi-Houthi
+                    peace talks ongoing.</p>
+                <div class="conflict-stats">
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">80+</span><span
+                            class="conflict-stat-lbl">Ships Attacked</span></div>
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">3x</span><span
+                            class="conflict-stat-lbl">Rate Rise</span></div>
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">15%</span><span
+                            class="conflict-stat-lbl">Trade Disrupted</span></div>
+                </div>
+                <a href="research.html#yemen" class="conflict-link">Read Research Document &rarr;</a>
+            </div>
+
+            <div class="conflict-card tension" data-type="tension">
+                <div class="flag-badge flag-badge-ten"><span class="flag-dot dot-ten"></span>MM &mdash; Myanmar</div>
+                <div class="conflict-name">Myanmar Civil War</div>
+                <span class="conflict-status status-tension">&#9888; Active Conflict</span>
+                <p class="conflict-summary">Since the 2021 military coup, Myanmar's resistance forces (PDFs) have made
+                    significant territorial gains against the junta. A humanitarian crisis with 2M+ displaced. China and
+                    Russia support the junta.</p>
+                <div class="conflict-stats">
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">2M+</span><span
+                            class="conflict-stat-lbl">Displaced</span></div>
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">3yr</span><span
+                            class="conflict-stat-lbl">Duration</span></div>
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">60%</span><span
+                            class="conflict-stat-lbl">Contested</span></div>
+                </div>
+                <a href="research.html" class="conflict-link">Read Research Document &rarr;</a>
+            </div>
+
+            <div class="conflict-card tension" data-type="tension">
+                <div class="flag-badge flag-badge-ten"><span class="flag-dot dot-ten"></span>ET &mdash; Ethiopia</div>
+                <div class="conflict-name">Ethiopia &ndash; Ongoing Conflicts</div>
+                <span class="conflict-status status-tension">&#9888; Ongoing</span>
+                <p class="conflict-summary">Despite the Tigray ceasefire in 2022, Ethiopia faces continuing conflict in
+                    Amhara and Oromia regions. 1.5M+ internally displaced. Humanitarian situation deteriorating.</p>
+                <div class="conflict-stats">
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">1.5M+</span><span
+                            class="conflict-stat-lbl">Displaced</span></div>
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">600K+</span><span
+                            class="conflict-stat-lbl">Tigray Deaths</span></div>
+                </div>
+                <a href="research.html" class="conflict-link">Read Research &rarr;</a>
+            </div>
+
+            <div class="conflict-card tension" data-type="tension">
+                <div class="flag-badge flag-badge-ten"><span class="flag-dot dot-ten"></span>NATO &middot; RU</div>
+                <div class="conflict-name">NATO&ndash;Russia Tensions</div>
+                <span class="conflict-status status-tension">&#9888; Critical Tension</span>
+                <p class="conflict-summary">With Sweden and Finland joining NATO, the alliance now directly borders
+                    Russia for 1,300+ km. Russia has issued repeated nuclear threats. Direct NATO-Russia confrontation
+                    risk is at its highest since 1983.</p>
+                <div class="conflict-stats">
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">1300km</span><span
+                            class="conflict-stat-lbl">Border</span></div>
+                    <div class="conflict-stat-item"><span class="conflict-stat-num">32</span><span
+                            class="conflict-stat-lbl">NATO Members</span></div>
+                </div>
+                <a href="research.html" class="conflict-link">Read Research &rarr;</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- STRAIT OF HORMUZ DEEP-DIVE SECTION -->
+    <section class="section" id="hormuz" style="padding-top:0;padding-bottom:80px;">
+        <div class="hormuz-section">
+            <div class="hormuz-header">
+                <div class="hormuz-icon">&#128676;</div>
+                <div class="hormuz-title-block">
+                    <div class="flag-badge flag-badge-strat" style="margin-bottom:12px;"><span
+                            class="flag-dot dot-strat"></span>&nbsp;STRATEGIC CHOKEPOINT &mdash; HIGH ALERT</div>
+                    <h2>The Strait of Hormuz: World's Most Critical Oil Chokepoint</h2>
+                    <p>A narrow 33-km-wide passage between Iran and Oman connecting the Persian Gulf to the Gulf of
+                        Oman. Through this strait flows roughly <strong style="color:#00d4ff;">20&ndash;21% of the
+                            world's total oil supply</strong> and 25% of global LNG — making it the single most
+                        strategically important body of water on Earth. Iran has repeatedly threatened to close it as a
+                        weapon of economic warfare.</p>
+                </div>
+            </div>
+
+            <!-- KEY STATS -->
+            <div class="hormuz-stats-grid">
+                <div class="hormuz-stat-box">
+                    <span class="hormuz-stat-num">21%</span>
+                    <span class="hormuz-stat-lbl">Global Oil Supply</span>
+                </div>
+                <div class="hormuz-stat-box">
+                    <span class="hormuz-stat-num">17M</span>
+                    <span class="hormuz-stat-lbl">Barrels/Day Transit</span>
+                </div>
+                <div class="hormuz-stat-box">
+                    <span class="hormuz-stat-num">33km</span>
+                    <span class="hormuz-stat-lbl">Narrowest Width</span>
+                </div>
+                <div class="hormuz-stat-box">
+                    <span class="hormuz-stat-num">25%</span>
+                    <span class="hormuz-stat-lbl">Global LNG Flows</span>
+                </div>
+                <div class="hormuz-stat-box">
+                    <span class="hormuz-stat-num">$1T+</span>
+                    <span class="hormuz-stat-lbl">Annual Trade Value</span>
+                </div>
+                <div class="hormuz-stat-box">
+                    <span class="hormuz-stat-num">5</span>
+                    <span class="hormuz-stat-lbl">Nations Depend >75%</span>
+                </div>
+            </div>
+
+            <!-- FACT CARDS -->
+            <div class="hormuz-facts">
+                <div class="hormuz-fact-card">
+                    <h4>&#127981; Economic Impact of a Closure</h4>
+                    <p>A closure of the Strait would immediately spike global oil prices by an estimated
+                        <strong>$50&ndash;$100 per barrel</strong> within days. Countries like Japan, South Korea, and
+                        India &mdash; which source 70&ndash;90% of their oil through Hormuz &mdash; would face energy
+                        crises within weeks. Global inflation would surge, and multiple economies could enter recession.
+                        The last near-closure in 1987&ndash;88 (Tanker War) saw insurance rates rise 500%.
+                    </p>
+                </div>
+                <div class="hormuz-fact-card">
+                    <h4>&#127987; Iran's Leverage & Threat History</h4>
+                    <p>Iran has threatened to close Hormuz at least <strong>5 times since 2006</strong>. In January
+                        2012, following US sanctions, Iran's military commander stated closure was &ldquo;easier than
+                        drinking a glass of water.&rdquo; The IRGC Navy routinely harasses commercial vessels, seized
+                        tankers in 2019 and 2023, and mines the gulf as a pressure tactic. Iran views Hormuz control as
+                        its ultimate strategic trump card against Western sanctions.</p>
+                </div>
+                <div class="hormuz-fact-card">
+                    <h4>&#9874; US Military Presence &amp; Defense</h4>
+                    <p>The US 5th Fleet &mdash; headquartered in Bahrain &mdash; is permanently tasked with keeping
+                        Hormuz open. It operates with carrier strike groups, destroyers, and mine-sweeping vessels.
+                        Operation Earnest Will (1987) demonstrated US willingness to escort tankers under fire. In
+                        2024&ndash;25, the USS Abraham Lincoln and USS Nimitz carrier groups were deployed in direct
+                        response to Iran-proxy escalation, making it the largest US naval concentration in the Gulf in
+                        20 years.</p>
+                </div>
+                <div class="hormuz-fact-card">
+                    <h4>&#127757; Geopolitical Significance</h4>
+                    <p>Countries that transit Hormuz include Saudi Arabia, UAE, Kuwait, Iraq, and Qatar — collectively
+                        some of the world's largest oil producers. Even Russia and China indirectly depend on Gulf
+                        stability; a closed strait would redirect China's energy supply chains for months. The strait is
+                        also a critical path for US military logistics in the Middle East. No viable pipeline
+                        alternative exists for the scale of flow — the only partial bypass is the UAE's
+                        Habshan&ndash;Fujairah pipeline (750K bbl/day capacity vs 17M through Hormuz).</p>
+                </div>
+                <div class="hormuz-fact-card">
+                    <h4>&#127775; The Israel–Iran–Hormuz Connection</h4>
+                    <p>With the USA&ndash;Israel&ndash;Iran standoff intensifying in 2024&ndash;25, the Strait has
+                        become a direct geopolitical weapon. Any Israeli military strike on Iran's nuclear sites would
+                        almost certainly trigger an Iranian response that includes Hormuz disruption via mines, missile
+                        strikes on tankers, or IRGC swarm boat attacks. This &ldquo;energy nuclear option&rdquo; is why
+                        the US has continually sought to restrain Israel from unilateral action, even while providing
+                        full military backing.</p>
+                </div>
+                <div class="hormuz-fact-card">
+                    <h4>&#128202; Oil Nations Most Exposed</h4>
+                    <p><strong style="color:#00d4ff;">Japan:</strong> ~87% of oil via Hormuz &bull; <strong
+                            style="color:#00d4ff;">South Korea:</strong> ~70% &bull; <strong
+                            style="color:#00d4ff;">India:</strong> ~60% &bull; <strong
+                            style="color:#00d4ff;">China:</strong> ~40% &bull; <strong
+                            style="color:#00d4ff;">EU:</strong> ~20%. A 30-day closure would drain Japan's strategic
+                        reserve to minimum thresholds. India has no meaningful alternative supply corridor at scale. The
+                        global ripple effect would affect every importing nation within 90 days.</p>
+                </div>
+            </div>
+
+            <!-- RISK METER -->
+            <div class="hormuz-risk-bar">
+                <h4>&#128680; Closure Risk Assessment by Scenario (2025)</h4>
+                <div class="risk-row">
+                    <span class="risk-label">Israeli strike on Iran</span>
+                    <div class="risk-bar-track">
+                        <div class="risk-bar-fill" style="width:75%;background:linear-gradient(90deg,#ff3b5c,#ff8c42);">
+                        </div>
+                    </div>
+                    <span class="risk-pct">75%</span>
+                </div>
+                <div class="risk-row">
+                    <span class="risk-label">Sanctions escalation</span>
+                    <div class="risk-bar-track">
+                        <div class="risk-bar-fill" style="width:45%;background:linear-gradient(90deg,#ff8c42,#ffd166);">
+                        </div>
+                    </div>
+                    <span class="risk-pct">45%</span>
+                </div>
+                <div class="risk-row">
+                    <span class="risk-label">Iran nuclear breakout</span>
+                    <div class="risk-bar-track">
+                        <div class="risk-bar-fill" style="width:60%;background:linear-gradient(90deg,#ff3b5c,#ffd166);">
+                        </div>
+                    </div>
+                    <span class="risk-pct">60%</span>
+                </div>
+                <div class="risk-row">
+                    <span class="risk-label">US-Iran naval clash</span>
+                    <div class="risk-bar-track">
+                        <div class="risk-bar-fill" style="width:35%;background:linear-gradient(90deg,#00d4ff,#0099c8);">
+                        </div>
+                    </div>
+                    <span class="risk-pct">35%</span>
+                </div>
+                <div class="risk-row">
+                    <span class="risk-label">Status quo (no closure)</span>
+                    <div class="risk-bar-track">
+                        <div class="risk-bar-fill" style="width:25%;background:linear-gradient(90deg,#4caf50,#81c784);">
+                        </div>
+                    </div>
+                    <span class="risk-pct">25%</span>
+                </div>
+                <p style="margin:16px 0 0;font-size:12px;color:var(--text-muted);">* Risk estimates based on RAND
+                    Corporation, Atlantic Council, and EIA scenario modelling (2024&ndash;2025).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CHATBOT -->
+    <div class="chatbot-fab" id="chatbotFab">
+        <div class="fab-icon">&#128172;</div>
+        <div class="fab-pulse"></div>
+        <span class="fab-label">Ask AI</span>
+    </div>
+    <div class="chatbot-window" id="chatbotWindow">
+        <div class="chat-header">
+            <div class="chat-header-info">
+                <div class="chat-avatar">&#129302;</div>
+                <div>
+                    <div class="chat-name">TrendPulse AI</div>
+                    <div class="chat-status"><span class="status-dot"></span> Research Assistant &bull; Online</div>
+                </div>
+            </div>
+            <div class="chat-header-actions">
+                <button class="chat-minimize" id="chatMinimize">&minus;</button>
+                <button class="chat-close" id="chatClose">&times;</button>
+            </div>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+                <div class="message-avatar">&#129302;</div>
+                <div class="message-bubble">
+                    <p>You're viewing the Conflicts tracker. Ask me about any specific conflict for detailed context!
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="chat-suggestions" id="chatSuggestions">
+            <button class="suggestion-chip" onclick="sendSuggestion(this)">Which conflict is most dangerous?</button>
+            <button class="suggestion-chip" onclick="sendSuggestion(this)">Explain the Yemen crisis</button>
+            <button class="suggestion-chip" onclick="sendSuggestion(this)">Sudan conflict explained</button>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Ask about any conflict..." />
+            <button class="chat-send" id="chatSend" onclick="sendMessage()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13" />
+                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 TrendPulse Research Journal &nbsp;|&nbsp; Independent &middot; Verified &middot; Global
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script>
+        function filterConflicts(type, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.conflict-card').forEach(card => {
+                const match = type === 'all' || card.getAttribute('data-type') === type;
+                if (match) {
+                    card.style.display = '';
+                    setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 10);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => { card.style.display = 'none'; }, 300);
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
