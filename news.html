@@ -520,22 +520,17 @@
         <p id="newsSubheading">Loading articles…</p>
     </div>
 
-    <!-- API KEY NOTICE -->
-    <div class="api-notice" id="apiNotice">
+    <!-- API KEY NOTICE (hidden by default since key is configured) -->
+    <div class="api-notice" id="apiNotice" style="display:none;">
         <div class="api-notice-inner">
-            <div class="api-notice-icon">🔑</div>
+            <div class="api-notice-icon">📡</div>
             <div class="api-notice-text">
-                <h4>Set Up Your Free NewsAPI Key for Live Data</h4>
+                <h4>Live News — Browser Fetch Limited</h4>
                 <p>
-                    1. Go to <a href="https://newsapi.org/register" target="_blank">newsapi.org/register</a> → Sign up
-                    free (100 req/day) → Copy your API key<br>
-                    2. Open <code>js/news-feed.js</code> → Find line with <code>API_KEY: 'YOUR_NEWSAPI_KEY_HERE'</code>
-                    → Replace with your key<br>
-                    3. Save and refresh the page — live news will load instantly. Articles are cached locally for 15
-                    minutes.
-                    <br><br>
-                    <strong style="color:#ffd166;">Until then, demo articles are shown below to preview the
-                        layout.</strong>
+                    NewsAPI free tier restricts direct browser requests on deployed sites (CORS policy).
+                    Articles shown below are recent cached stories. For unrestricted live data, a server-side proxy is
+                    required.<br><br>
+                    <strong style="color:#ffd166;">Showing latest available articles from the news cache.</strong>
                 </p>
             </div>
         </div>
@@ -658,29 +653,8 @@
             setTimeout(updateDbStats, 5000);
         }
 
-        // Hide API notice if a real API key is in use (not the placeholder)
-        setTimeout(() => {
-            const notice = document.getElementById('apiNotice');
-            // Peek at the config by checking if real news loaded (not demo titles)
-            const keys = Object.keys(localStorage).filter(k => k.startsWith('trendpulse_news_'));
-            if (keys.length > 0 && notice) {
-                try {
-                    const first = JSON.parse(localStorage.getItem(keys[0]));
-                    const isDemo = first?.articles?.[0]?.title?.startsWith('[DEMO]');
-                    if (!isDemo) {
-                        notice.style.transition = 'opacity 0.6s ease, max-height 0.6s ease';
-                        notice.style.overflow = 'hidden';
-                        notice.style.maxHeight = notice.offsetHeight + 'px';
-                        requestAnimationFrame(() => {
-                            notice.style.opacity = '0';
-                            notice.style.maxHeight = '0';
-                            notice.style.marginBottom = '0';
-                            notice.style.paddingBottom = '0';
-                        });
-                    }
-                } catch (_) { }
-            }
-        }, 3500);
+        // The API notice is hidden by default (key is already configured).
+        // No action needed here — keeping this block for future use.
     </script>
 </body>
 
